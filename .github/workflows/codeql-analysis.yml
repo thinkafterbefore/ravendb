@@ -1,19 +1,16 @@
 name: "CodeQL"
 
-on:
-  push:
-    branches: [ v4.2, v5.1, v5.2 ]
-  schedule:
-    - cron: '26 4 * * 5'
+on: [push]
 
 jobs:
   analyze:
-    name: Analyze
-    runs-on: ubuntu-latest
+    name: Analyze ${{matrix.runs-on}}
+    runs-on: ${{matrix.runs-on}}
 
     strategy:
       fail-fast: false
       matrix:
+        runs-on: [ubuntu-latest, buildjet-2vcpu-ubuntu-2004, buildjet-4vcpu-ubuntu-2004, buildjet-8vcpu-ubuntu-2004]
         language: [ 'csharp' ]
     steps:
     - name: Checkout repository
